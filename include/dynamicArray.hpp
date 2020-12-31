@@ -7,11 +7,13 @@
 template <typename Type>
 class dynamic_array {
     public:
+    //default val
     Type defaultVal;
     //pointer to the array
     Type *pointer = nullptr ;
     //sizeof the array
     size_t size;
+    //the alloc size
     size_t realSize;
     //unused bytes b4 the start of the array
     size_t offset = 0;
