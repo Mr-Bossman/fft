@@ -107,8 +107,8 @@
     }
     template <class Type>
     Type* dynamic_array<Type>::Lshift(size_t shift){
-        register Type *new_ptr = new Type[this->size+shift];
-        register size_t size = this->size;
+        Type *new_ptr = new Type[this->size+shift];
+        size_t size = this->size;
         this->size += shift;
         while(size--){
             new_ptr[size+shift] = pointer[size+this->offset];

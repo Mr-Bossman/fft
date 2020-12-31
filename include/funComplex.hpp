@@ -1,5 +1,6 @@
 #include "common.h"
 class CompL{
+    public:
     CompL();
     uint64_t imag();
     uint64_t real();
