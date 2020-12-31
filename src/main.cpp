@@ -6,7 +6,7 @@
 #define dyn dynamic_array<uint64_t>
 int main(int argc,char **argv){
     CompL a;
-    a.imag();
+    std::cout << a.imag();
 
     return 0;
 }

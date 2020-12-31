@@ -4,6 +4,8 @@ class CompL{
     CompL();
     uint64_t imag();
     uint64_t real();
+    void imag(const uint64_t& num);
+    void real(const uint64_t& num);
     const CompL mult(const CompL& num) const;
     const CompL add(const CompL& num) const;
     const CompL div(const CompL& num) const;
