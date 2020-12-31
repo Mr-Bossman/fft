@@ -1,18 +1,6 @@
-
- 
-#include <iostream>
-#include <stdio.h>
-#include <string.h>
-#include <iostream>
-#include <stdio.h>
-#include <string.h>
-template <class Type>
-class dynamic_array {
-    public:
-    Type *pointer = nullptr ;
-    size_t size;
-    size_t offset = 0;
-    dynamic_array(Type initVal = 0 ,size_t size = 1){
+#include "dynamicArray.hpp"
+    template <class Type>
+    dynamic_array<Type>::dynamic_array(Type initVal,size_t size){
         this->size = size;
         this->pointer = new Type[size];
         while(this->size--){
@@ -21,17 +9,20 @@ class dynamic_array {
         this->pointer[0] = initVal;
         this->size = size;
     }
-    ~dynamic_array(){
+    template <class Type>
+    dynamic_array<Type>::~dynamic_array(){
         delete[] this->pointer;
         this->offset = this->size = 0;
         this->pointer = nullptr;
     }
-    void del(){
+    template <class Type>
+    void dynamic_array<Type>::del(){
         delete[] this->pointer;
         this->offset = this->size = 0;
         this->pointer = nullptr;
     }
-    dynamic_array (const dynamic_array& rvalue) {
+    template <class Type>
+    dynamic_array<Type>::dynamic_array (const dynamic_array& rvalue) {
         delete[] this->pointer;
         this->size = rvalue.Size();
         this->pointer = new Type[this->size];
@@ -40,7 +31,8 @@ class dynamic_array {
         }
         this->size = rvalue.Size();
     }
-    dynamic_array& operator= (const dynamic_array& rvalue){
+    template <class Type>
+    dynamic_array<Type>&    dynamic_array<Type>::operator= (const dynamic_array& rvalue){
         delete[] this->pointer;
         this->size = rvalue.Size();
         this->pointer = new Type[this->size];
@@ -50,15 +42,18 @@ class dynamic_array {
         this->size = rvalue.Size();
         return *this;
     }
-    size_t realSize() const {
+    template <class Type>
+    size_t dynamic_array<Type>::realSize() const {
         size_t i = this->size-1;
         while(this->pointer[i]==0 && i > 0)i--;
         return i;
     }
-    size_t Size() const {
+    template <class Type>
+    size_t dynamic_array<Type>::Size() const {
         return this->size-this->offset;
     }
-    void swap(dynamic_array& rvalue){
+    template <class Type>
+    void dynamic_array<Type>::swap(dynamic_array& rvalue){
         Type* tpointer = this->pointer;
         size_t tsize = this->size;
         size_t toffset = this->offset;
@@ -69,20 +64,24 @@ class dynamic_array {
         rvalue.size = tsize;
         rvalue.pointer = tpointer;
     }
-    Type &operator[]  (const size_t &index) {
+    template <class Type>
+
+    Type &dynamic_array<Type>::operator[]  (const size_t &index) {
         if(index+this->offset >= this->size){
              expand(index+1);
         }
         if(index > this->size-this->offset)pointer[index+this->offset] = 0;
         return pointer[index+this->offset];
     }
-    const Type operator[]  (const size_t &index) const {
+    template <class Type>
+    const Type dynamic_array<Type>::operator[]  (const size_t &index) const {
         if(index+this->offset >= this->size ){
             return 0;
         }
         return pointer[index+this->offset];
     }
-    Type* expand(const size_t size) {
+    template <class Type>
+    Type* dynamic_array<Type>::expand(const size_t size) {
         Type *new_ptr = new Type[size];
         register size_t loop = size;
         while(loop-- > this->size){
@@ -95,15 +94,18 @@ class dynamic_array {
         this->size = size;
         return this->pointer = new_ptr;
     } 
-    Type pop(){
+    template <class Type>
+    Type dynamic_array<Type>::pop(){
         register Type ret = (*this)[0];
         this->offset++;
         return ret;
     }
-    void pop(const size_t& shift){
+    template <class Type>
+    void dynamic_array<Type>::pop(const size_t& shift){
         this->offset += shift;
     }
-    Type* Lshift(size_t& shift){
+    template <class Type>
+    Type* dynamic_array<Type>::Lshift(size_t& shift){
         register Type *new_ptr = new Type[this->size+shift];
         register size_t size = this->size;
         this->size += shift;
@@ -116,7 +118,8 @@ class dynamic_array {
         delete[] pointer; 
         return this->pointer = new_ptr;
     }
-    Type* Lshift(const size_t&& shiftA){
+    template <class Type>
+    Type* dynamic_array<Type>::Lshift(const size_t&& shiftA){
         register size_t shift = shiftA;
         Type *new_ptr = new Type[this->size+shift];
         register size_t size = this->size;
@@ -130,4 +133,3 @@ class dynamic_array {
         delete[] pointer; 
         return this->pointer = new_ptr;
     }
-};
