@@ -107,3 +107,5 @@ print(str(a) + "restult")
 
 
 
+#https://www.nagwa.com/en/explainers/152196980513/
+#Lesson Explainer: Matrix Representation of Complex Numbers
